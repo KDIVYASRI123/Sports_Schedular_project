@@ -1,0 +1,25 @@
+{
+  "name": "divya-sri",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "prepare": "husky install"
+  },
+  "lint-staged":{
+    "*.js":[
+"eslint",
+"prettier --write ."
+  ]
+  },
+  "keywords": [],
+  "author": "one",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "husky": "^8.0.0",
+    "jest": "^28.1.3",
+    "lint-staged": "^15.2.5",
+    "mocha": "^10.4.0"
+  }
+}
