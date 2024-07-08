@@ -3,73 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <title>Sports Scheduler</title>
 <style>
-    body{
-        background-image:url('https://t4.ftcdn.net/jpg/05/31/83/21/360_F_531832113_NvsgAJ0X7z4fpljSLteLHN0K9bN8hcGP.jpg');
-        background-repeat: no-repeat;
+body {
+    font-family: Arial, sans-serif;
+    background-image:url('https://t4.ftcdn.net/jpg/05/31/83/21/360_F_531832113_NvsgAJ0X7z4fpljSLteLHN0K9bN8hcGP.jpg');
+    background-repeat: no-repeat;
         background-size: cover;
-    }
-    .one{
-        border: black solid;
-        width:400px;
-        padding-left:40px;
-        
-    }
-    .two{
-        border: black solid;
-        width:400px;
-        margin-left: 500px;
-        margin-top: 400px;
+    margin: 0;
+    padding: 20px;
 }
-    .three{
-        border: black solid;
-        width:400px;
-        margin-left: 800px;
-        margin-top: 400px;
-    }
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+#scheduler {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.sport {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+}
+
+h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+label {
+    margin-top: 10px;
+}
+
+input[type="text"],
+input[type="date"] {
+    padding: 8px;
+    margin-top: 5px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color:chartreuse;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color:chartreuse;
+}
+
+ul.participants {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul.participants li {
+    background-color: #eee;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+ul.participants li button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+ul.participants li button:hover {
+    background-color: #e53935;
+}
+
 </style>
+</head>
 <body>
+    <h1>Select sports to join</h1>
+    <div id="scheduler">
+        <div class="sport" id="soccer">
+            <h2>Soccer</h2>
+            <form onsubmit="joinSession(event, 'soccer')">
+                <label for="soccer-name">Name:</label>
+                <input type="text" id="soccer-name" required>
+                <label for="soccer-date">Joining Date:</label>
+                <input type="date" id="soccer-date" required>
+                <button type="submit">Join Now</button>
+            </form>
+            <ul class="participants" id="soccer-participants"></ul>
+        </div>
+        <div class="sport" id="basketball">
+            <h2>Basketball</h2>
+            <form onsubmit="joinSession(event, 'basketball')">
+                <label for="basketball-name">Name:</label>
+                <input type="text" id="basketball-name" required>
+                <label for="basketball-date">Joining Date:</label>
+                <input type="date" id="basketball-date" required>
+                <button type="submit">Join Now</button>
+            </form>
+            <ul class="participants" id="basketball-participants"></ul>
+        </div>
+        <div class="sport" id="tennis">
+            <h2>Tennis</h2>
+            <form onsubmit="joinSession(event, 'tennis')">
+                <label for="tennis-name">Name:</label>
+                <input type="text" id="tennis-name" required>
+                <label for="tennis-date">Joining Date:</label>
+                <input type="date" id="tennis-date" required>
+                <button type="submit">Join Now</button>
+            </form>
+            <ul class="participants" id="tennis-participants"></ul>
+        </div>
+    </div>
+    <script>
+function joinSession(event, sport) {
+    event.preventDefault();
     
-    <h1>Sports Schedular</h1>
-    <h2>SELECT SPORTS TO REGISTER</h2>
-    <img style="margin-left:800px;margin-top:-50px;" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJQBBwMBEQACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYBAwQHAgj/xABDEAABAwIDBQQIBAQCCwEAAAABAAIDBBEFITEGEkFRYRMicZEHFCMygaGxwUJi0fAVUnKCRJIkJSYzNENTc3TC4Rb/xAAbAQEAAgMBAQAAAAAAAAAAAAAAAQQCAwUGB//EADQRAAICAQQBAgQDBwQDAAAAAAABAgMRBBIhMUEFEzJRYXEUIoEjJDM0QqHBcpGx8AZD0f/aAAwDAQACEQMRAD8A9xQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEBhAZQBAYQBAEBlAEAQGEAQBAEBlAEBhAZQBAEBhAAgMoDCAIDKAIAgMIAgMoAgMIAgMoAgCAwgCABAZQBAEAQBAEAQGEAQGUAQGEAQBAZQBAEAQBAEBhAZQBAYQBAEAQGUAQBAEAQBAEAQBAEAQBAEAQGEBlAEAQBAEAQBAEAQBAEAQBAYQGUBhAZQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAY0QC6AxvC1+CA+O3ivbtGf5go3LGSdr+RsDrplPogbwUgIDKAIAgCAIAgCAIAgCAIAgCAE2QGCbIBdALoDKAIAgCAIAgCAIDBNkBD4xtFQ4Zdr3GSb/px5n4ngtVl0YG+rTTs5XRTcS2xxKoLhA9tLGeEYu7zP2VKepk1wdKvQ1x75K7V4lUzkmeeSQ83vJ+qpWXTfk6FdMF0iFdVudjbWkg/6PfT8xTc/wAK39TWopa1f6SwYfXTwOHYyvjP5HFv0Vau2S8lyyuMliST/Qs2G7TYhDZskgnZyk181cr1tsO+TnXen0z6WC14bjtLW2Zfspbe67j4FdGnVwteOmcq/R2U89old5WyoZQBAEAQBAEAQBAEAQGCbIM4OStxKkoReqqGM/Lq7yGahtIzjXKfSK7iG29NDf1aAvt+KRwHyCwdiLUdHL+plbrfSFiDi4UzWj+mO/zKx9xmxaWtd8kYdvNpA8Fs0O7yexpv8lj7jMnp6n4LJsr6QzW1cdDjUMUEshDYpoid1zuTgfdvz0WcbM8Gi7S7VmJepKyniHtJo2niN7RbSmfIr6QgEVMVv6ggNzZGvF2Oa7wKA+r3QGUAQBAYJsEBT9ptpi3fpMPfY2s+YfRv6qrbdjiJf0+lz+aZ5/UB7d50DyXHMhztfiq/vRfEy29PKPNTx/wRT8Yh7bsJ/YTcGv8AxeB4rTbVJR3R5Rvpvi5bJ8My+Qk2y8CbLny5OhEjGO/2mYCf8Jx/qKsNY0jz8yq/51f6Sw0rswdb8AVSXDL7JSnqIwQ0O35OEcebj+nibK7XQ5LdPhFC3UxT2Q5kd8FPLO4GpfYaiGM2aPE8T8lm71H8tS/Ur+xKT3Wv9PBbsGxd0QZT1RvH7rX8W9CrGm1jT2zKWo0i+KBZQbgG4XVynyjmmUAQBAEAQBAEBg6ZID4llbCx0kjg1jcyShKTfCKbtBtaQxzKMuYwG2+B3nHgAtUp/IvV6ZRW6ZXKDD5sddOa6oljBYbbpy3joCeKhLJldPaiDdSyNqZKWoaW9k3uguuHWNiR8vNYtYNkLFLGOjLoQDuRtu4nIAa9FHLZt4SJzC9kZKgtkxAOYOETMnHxPBZxrz2VLdUlxEtlDgVPRRAU1PHCAO85reHU6raopFOU5S7ZXMd2wwjDHOhpS6vnbkRD7g/u08lJgR+Ebe4fLuxYjBLSEn3299n6oC20k8E8TaiiqGSRuzbJE/VASVNis8OU3tWc+KAmaaqiqY9+J17ajiPFAfUs8cLd6V7WDqVDkl2DgmxumjyY2aX+iM28yq8tSl0m/wBDYq2/JF4xi9VVUjoaWmmhLsi8jO3SyrWauzHFbN9VcIvMmUyroKtmjLnkcjdVJaheU0dKFtb8lexGSemeWVEEkTjwe0i6wnJ4Lle2XTIirbDVsMdREyRnJw0WEZyg8xZsnXGxbZI5GUEkX/BV00bRpG/vt+ea2u9S+OKZpWmlH+HNr6HJHHiP/wCgY0VUPa+q33xEbbu8crX1W5yp/D528ZK7je9UluWcfInqfDpJnf6ZXzStOrGWYPlmqb1UIfBDH1Lf4SU/4k2/oiy4XBDTMEcEbWNGdhx8VplbKx5m8m1VQrjtgsFhpmbwy4hb4rJVseDtEeXw1WbjwaXInMCriT6rMc/wE/RX9Hf/AOuRzdXTj86Ju66JSMoAUAQBAEAQHxNIyKN0kjg1jRck8EJSbeEefbR7QCse6zzHSx5AE2v1K0ylk6VVKqWX2RmGYXPiRFbPuxUzCQN/VreLrc+GenmiRjZalLDO3FsTinjjbBvRxtzeALNy0Klv5GuqqUZZmitds10sk+e4QGtB/EBfP4k/ILFliOFz4LBsLG2ofV1LoS57HiOJ5GgtnZbIxSKV9+7hF3ggnABEbLfmzWZXKttu3E6uf1OSYQ0e4HbsQLe0/qOpHRAebYhRsgaWtYABoEBDFu7cHQoCW2Wnr4ccpIsOmfG+eUCRo91zeII8AUB7H2eWQB6lAfUMboZWytkfE4cGcfHogN0jzI/edZx5nMqMIGb2zdp1ClZIyfcTg7PLd5gqcYJPrIm9h0JUA0VtFT10DoKuFksTtWuH7ssZRUliRnCc4PMGeZbVbHzYRv1dBvzUIzc05vhHXmOvBczUaRx/NE7ml18bPyz4ZWY3ciue0dJHLE7/AGoj/wDD/wDYre1+6P7lN4/GL7FkgPDgua0dLJK0T1CeGYSLJQu7t1fqfBQtRJxi+qsYKcmfLi6KRr2Gzmm4WmbcGmicKSafktdHMKinjlacnDTqu5VNWQUkcecXCTizethiEAQBAEBg6ICj7Y46HyOooH+zZ77hxP6Bapy8HQ0tOFvkVTBYm4pXsmqmv9Tbd+Qya3+Y+P063WMVkytsxHcSmJ4pHQOfFQysFIyO5LO8eefVZSeOEaoQVicpdldmmdK0OqMmcIuA8TxKwLOG+zFFFLitZHTw5l7t0HlzPwCzgslfUWYWEet4NhsFDTRwRNAYwWHVbSiSosEBBbWxNkoO3aLvgzNtS3j+vwQHjeO4jQCdwdW0zdbAyAICtVGI0YPdqYCP+4EBevRhTRTPlxUlrg28cdjfPigPSHTsihMkjmsaOJKwnOMFmTwTGLk8IiZ8bbvFtOze/M7Rc231OOcVLJbhpG+WyibT7QY7Bib4PXnRwFodE2Job3T18QV3/SpV6jTqcl+ZcMo6qMqrNpAOra2Y3lrKl1+crv1XXjCK6RVbbJTZzGqjCMSiqO0kfFe0rHOJBbx+K130KyGF2TGW1ns1PIyohZNC8PjkaHNcDqCuHJOLwy0nlZN1gASbADU8li2ksslLPBHVlYHNLYWhw4udoVzL/Uox/LWslqvTvOWeP7aYBWUeIOqqKrENJM6/ZiP3Hch0VWu+uS/PDk6VaulxGZU2U1Z/GmNGIO7b1e4k3NBc5WVrfX7GdnGejH27fxON/OPkTkFLit+5ig/uhv8AdU3dp/MP7l1U6nxZ/YlqGnx1jhaupZB1hIP1K179G/6X/uPb1a/rX+xasLfijd0TNgcObbqzUtO+m19yvY9Qu0n9iy0gneM2Rk/17v1/VWFXF/DJFOVkl8UWbahpZYSsfEToXDI+BGXzWq2iWBC6LZLbPP8AYviJ9x1x4FWNA2ouD8FfVpblJeSYXQKgQBAEBg6ICH2nxP8AhmFve11pX92Px4nyWMpYRuor3z56PJZe3xaubQU5LpJsnZ6DMnz/AFWhLLOjbNR4J3EsQgw3ChgMrS6eOEF7ozugOOduo08RqtjaXBUjCU5b/BWDP2rmH/lMILQfxuGh8Br4jotfRb+J/Q46ys3QTvcMkwRJnoWwODy0hdVVkLopNxojDhwOZPxsArEeEcyyW6RehI0cVJgHVDWNOaAhMQrmyzCMk9m3vPF9eiAimzRQM3aSlpadg0bDAxlvIIDTJWF4tJukdQgOaSup6Fj6l27FDGN6RrRbe6AcysoQc5KKMZSUVllcwvF6zHa2tr6p57MERQxA92IDOwHPMXOv25/ruK3XUvuy16bme+bJVnMarz7OmRO2FD6xh7atjfaU5ztxYdfsfgV2/QdUqdQ65dSKGuq3w3rsqTLE3C9sjjHRGp65DPRfR7jTBTSYZUyWMLTJEXH8PEfA/Vcr1KEa17vg30Ny/KWCorHVDswRGPdbz6leN1eslc8R+E61dKj32fBddqpeMG8iMdo219BNTuGbm908jw+ayhLbLJlCW2WTx7vN2jYHAhwpiCOXeK6jX7s/uWE/3tfYsVIcwqLOimTtFna+dgtW0Nk9Rnd/fVWYM0TRLUz1YTKU4nWJ3MabOO6RmOB+Cz9yUOmV3UpdnXs84euyhmTXMBtwB6KzpLFOb+ZV1NbhFFiXQKYQBAEBg6IDzD0l4sf4iYGnu0zALD+Y5/Sy02dnR0y21bvmR2yWHM/hk+LsDpq6PtOxjPda42te514+CRWVk13Tw9j6ZXMSxKpxKaI1cgc8tsSBa7Rr55eaxbyzdGEYJRic804DbDQZLE2vjg4IX9tiVHFqJKmJpHQvAKyXZqk+Ge/VTxFUkjQADyVg5hzyVwGpsgOKrxFoYe9nwQET2pORzLsygNM83JARs9VuoCtbT1zn07It7InecujoI9yK2ofSO3Y5tsIL/wCeZ36fZeZ9elnV4+iOr6av2H6k+0ZrinQOns2zQuikF2PaQRzCmE3CSkvBhOKkmmebVVK6hrJqV4zicQDzHBfSNJetRTG1eTztkHCbifUZVo1nZSVb6OoiqY/fjcCBz6fb4rTqqI6imVUvJlXNwkpI9Lp5mTRMmideORoc09CvmlkJVycJdrg9DGSktyN4OSwJNcwu09FDIyeMbWQVdLtxUilEJ34hIwPJA3Tmb9d7eXb07rlpVuz2Iu53r28ZwbKPFnU72txOmdTg5CZvfj8xp8VrlpozWanktx1coPF0cfXwXLDZGva1zSC0i4INwVTccPDLykpLKJyByzREkSMD1sTKs0b5JO6FjY+DVGPJKbKtvVTO5M+6tenL88mVNfxFIsy65ywgCAIAgPA9qMRZLjU9S9gkYKvfLCbXaHXt8lXytx1Nv7NJHbtbjGH4hTUU2FVJjiZcCna3d3Cdb9eCzl1wV6U1JqZV2P7zpLWBFmjp+/otb+RZjy8mueS40ub2GV0MmTuA7Mz+sQV1YTG6N4kjjGpINxdTkyVG5fmLjV11ZM8ukneXHlkAo3yN0dPUljajiMtXnuyk+JTfImWmpkuUQmMYlidA9kwgbPA1wMtvea3iRzW2NmeGc7UaJwW6HKJelrmzMD2uDmuFweYWwoCplyQEPVzICt4w/fLfiulofhZV1HxIsexT97CXM/kmcPMA/deZ9fjjVp/RHW9Mf7HH1LABkuGdA6IUMWVnbih3Xw4hG3Ijs3n6Fep/8d1XEqH91/k5fqFXUysscvVo5huYRldSiC87EVD6vD30zQXOgNxYfhOa8Z67oZrUe7Wu/wDk6ujuj7eG+izimnIHsX/FcaOkvf8ASWnbD5n06gqHDvBrBzOasQ9Nul3wYPURXR5P6QIY4NvII4ySRhzS49d9/wBrK7bTGmjYvmbtFPffl/I1UzA8bj2tc1wsQeIXNzteUdtpSWMcH1S9pgEzZI952FyGz2amnPMflVtSjqI4fEl/cotS0kt0eYP+xdaWVr2B7HBzSLgjQqpjDwy9lSWUd8T1OTTKJvDrmwUNmpotGzEAZTyS/wA7rDwC6uhr2wycnXT3WYJtXyiEAQBAa6h/Z08r/wCVhPyRkrs/NOKTOkmdwu8qqjrS6RzsEYN9xt9b2UmOEfbpBmc0JLBshhzKic1kzQ4RmzAdL8SoN1cfLLvZoGXDieKG5LJHVc+4TZY5N8Y5I/8AiG6c0yZOBrqKpk0RBIuRlYomY7PBE0FY2GqNOLNa65YOR1I+6sVyyjh63T+1PcumTL5N5i2FIi6y6A7aT0fYxi8YkkdFQxHQzAuef7R/8VjTXKrOUarK97WCfwX0eVuDxTgYtDUdrZwb6qYwCOu8enDgqHqVX4xxlHjBa0s1Qmj4rqOrw2UNrI7A+68ZtPxXBu0tlT5R0q7Y2dHwypaGg5Ks4M2GnE3xV+HzUj3Ab7TY3908D5qxpLJae6Ni8Gi6KnBxZ501/fc0izgbOHI8Qvo0ZqaUl5PPuO14fg3tdcArYnkgtXo8rjS7RMiLrMqWGMjrqPoVV1kN1WfkZ1vEj1a+S4paNUzrDM5IDw7bSo9Z9ItQRmI6ZsY+GZ+ZKoax5g/v/g6uijiyL+a/yzZSahcds7SJimayRhZI0Oa4WIPEcioUnF7kZOKknGRjBy/Cqz+GyuLqaS7qWQ8ObD+/qrs0r4b49rso1uWnn7UvhfX/AMLPGVULUkd9FEZ3tY0Xc42Flurg5PBVumoxbL1SQCngZE38I+a7tcNkVE89OW+TkzeszEIAgCA1VLd+mlZ/Mwj5ISuz8v1Tj628E+6SPmqyOo30fIegBcbZaqQy77NSthoI2iwy8ysWW6/hJKWt1uVizfFEbVVYc094KDciDqqvdJzUGw4mYh7TM5eKkxkc4YayvjYHmP2gdvDXLkttfZy/UOavsXNrA5mV/NWDiZyT+yNDQxSmvxCWFsjXWhbK4C3N2fFQ2kZKEpLKRbf47QC7aeR1VIPwQMLr9L6KNy8Gz2J9vg+mx4pXv9q9tDAbHdabya8eWX16KOX2TmqvrlivwvDxC5tQ10gdkQ+Qm6iVcZLEjH3ZeCAw7ZeOJzn1Uolu4ljXOyDeF7aleX1EZb3GElFfNvlm6V8mkkSjsMga2zG03Qbtvsqy0jk/4ib+5r3yKjtJsfQ1he+GP1OsOYewd156jQrp6L1bV+ntQt5j/wB6ZpnWpHnU8E1FUyU1SwsljOYPHqOi99ptRDUVK2t5TKbi4vB2YTVGlxGkqGmxjmY74Xz+S2zW6DX0I6aPdHOAaHAjPMLz3XBc+pX9pdoaTBacPqX+1fcQxjV5H08UlxFy+RnXHfNQXk8TdM+p2mNRKbySwl7vEuJXJtluobfzO3CKjqYxXhE9T6hcxnRRL0YOSGaO2poxWU5jJ74Icx/FrhorFE/bkn4NGprVkWvJJYTI6ena6YWlad1/iFttqUZ8dMrV3OcMPtF22bw8xt9albmcoweXNXtJTtW5nM1l+57EWBXigEAQBAEBgmwQH5o2ro3YZtNiVG/IRzu3R+U5j5EFaGsNnShLckyMBUGQOYzQkmsMxTsY2xyHIiwv91Bvg+Dskrmu911svgscG+NuDjnqsiBIP8pTBn7xF1Ehec3HPiG/qp2kfiMHO3dZqXEcS42/fmm0wle5HXg16iva5g9m3V32C2QXJQ1csVtZ5ZeoG+yB6Lcc19l6w6npHYfSsnhjeBGPeYCVGESpSS4bJqmMUfdjaxjfytA+ilIhycu2dBc3cuDn9SoIK5jNaWztb1XM9YtcNPheSY9imqWloJcF5OKwbjZJM3dJJuFs8EEZUV0bWOgmsWP93iWu4W/RXNI/d/Yz5T6+j+hi0Rk2xDtoZIKvEKo0jms3SyNgc9zeFyTkvT+jq3Q1yhLlNmmyCkduH+jOgpK2Kq9cnqY4u8IJWgbzuFyOHRdaWtlKO3GDBVJMkMdxalwSilq69wiYz8OV3O4AdSqkY5ZsbPFcZxqox3FH11Tl+GKMm4jZy8eaoau7d+SPSOvodPsW+XbI6E/6/ZbT1a3zKqS/l39y0v5pfYstGLuzVDaX10TlMGtAz4LJRDZJU2ei2xjk1Tngt+AbP3tU1TS1rjvdkRbe6noupVRuinLwcO/UYk1DyWsAAADIBW8Y6KP1PpSAgCAID4dI1ut0Bxz4pBAD2m/Ya2CE4PJPSnDQYtVsxOgkkjrGMEc0bozuytGhvwIueGY8FrkvJZpltWGec5tHeBHiCFrwWNyHaN0vfwF0wNyN8RLsi11jx3Tkf0UpEe8kz4mLmk2e5uedtPnb6pgsKw0n1h1yJm263+wKjDJc4nw5so96doH752U4ZG+K6R89mwAGV7pDw3sh+vkpwYyteC24JRshja5zmEnO40+C2R4Rzrp72WJj2tFrrI0kxRRsr6cPdVTB0QDN1j7bo4FQ45Nkbdq4RKU0ddTtPquIF/EMqGXHhcZqMNdM2e7CXxROluPdk/ssRifTPItvk3Yc7ZHy8zyNo3fMOn+qDyiKx2XekEkbg4DXNc31avfRleDSk0R0OJ7gzPzXmnBpZMsm84q3d1WOGMnzhT21+ORB9iyMF9r8Rouv6TTuty/BDZdaaS7teOf7/ei9KYErE8NYNAeqA8j9PdMRLg9cxzi13awvZfK4s4Otz94LXa5bcItaTYp5keVRzgHMqhKB2ITT8n1DMP4wx4OXY2v8SocX7DX1MYv96X2LLQ1DRbedbxVX238i65xj2yyYYz1kt9sxoOpcb5eC3V0Sl2VLdXXBdl7wKHDaKzx7eYfjfw8Ar9VUYHJv1E7foWeKta/QKwVMHS2YOUkGwEFAZQBAEBiw5BAfDoY3e8xp8QgNL8OpH+9BGf7QmCcs0PwTDXm5pIf8gUYQ3M0v2cwt3+EiH9oTBO5nPPsnhkjCGwtaTxDUwNxUMf8ARoau76MsD7ZEGxWO03RuwU6o9GG0zDaKCB7eZcPuFG02K+B90vos2jkeBOIYW8Sxwv8ARMB3x8E9TeiV7WWc9u8fecTclZbTRO1yD/RRVxg+rVpjvwY4hMGDZGzeiHFd4ujxGQEm5IdmhAw30dbS4JXx11HiEj5GZbj+81zTq1w4gqcklvinqYsqujmhkAz3Wlzb9CpyRg+Kita6MsdDJID+ExEg/JBFuLyiuYphldWADD6R8Bv/ALx29fyvZapwUo7TbvlLtmufDalkTTODE8Dvd24J6W0XEu0KrfD4NbOIwPHvVUIbzBJ+S0/h4LlyRGTtwzEqfDqlpbvSF/dfJbO3IDkrWknGuaUF+oLjTYjkM7jnzXcIJaDEA4WvcoCobe4XUbSVlJFG0mCkDvi91r+QA+a1yyzZB4K7F6NpJc3R3v0WO0z348nfB6LIzm+LNNhPvPOckpSejKCN292YBRVoh2t+Scodioae1gPJZ7TH3CcpcDiiUqKMXNndHQxs91Tgxyb2xBqkg2BoCAygCAIAgCAIAgCAIDCAFGQAhI6IBwQBCAhJiw5KAC1pHujyUgwWMNu63yQHNUYfR1APbU0bs+LVjtUuwcDtk8Bcd52GQE9QtX4WlvLiDZHs7hFOw+r0EEf9LVmq4LhIk56nZukllDxNUx5aMc0D6LZjBBtpMApoZA4T1Dt3MBzm2+QCAlWwRDRg8lCJyfW60aNHkpwQZ04IDIzQA5IQDohJlAEAQBAEB//Z">
-    <div class="one">
-        <h1>Cricket</h1>
-        <form action="/CricketSubmit" method="GET">
-            <label>Date of joining:</label>
-            <input type="date" name="doj" id="doj"><br><br>
-            <label>Player type:</label>
-            <input type="text" name="pt" id="pt"><br><br>
-            <label>Duration in months:</label>
-            <input type="number" name="dim" id="dim"><br><br>
-            <button type="submit">Submit</button>
-        </form><br>
-    </div>
-    <div class="one">
-        <h1>Football</h1>
-        <form action="/FootballSubmit" method="GET">
-            <label>Date of joining:</label>
-            <input type="date" name="doj" id="doj"><br><br>
-            <label>Player type:</label>
-            <input type="text" name="pt" id="pt"><br><br>
-            <label>Duration in months:</label>
-            <input type="number" name="dim" id="dim"><br><br>
-            <button type="submit">Submit</button>
-        </form><br>
-    </div>
-    <div class="one">
-        <h1>Volleyball</h1>
-        <form action="/VolleyballSubmit" method="GET">
-            <label>Date of joining:</label>
-            <input type="date" name="doj" id="doj"><br><br>
-            <label>Player type:</label>
-            <input type="text" name="pt" id="pt"><br><br>
-            <label>Duration in months:</label>
-            <input type="number" name="dim" id="dim"><br><br>
-            <button type="submit">Submit</button>
-        </form><br>
-    </div>
+    const nameInput = document.getElementById(`${sport}-name`);
+    const dateInput = document.getElementById(`${sport}-date`);
+    
+    const name = nameInput.value.trim();
+    const date = dateInput.value;
+    
+    if (name === '' || date === '') {
+        alert('Please enter both name and date.');
+        return;
+    }
+    
+    const participantsList = document.getElementById(`${sport}-participants`);
+    const newParticipant = document.createElement('li');
+    newParticipant.innerHTML = `${name} - ${date} <button onclick="removeParticipant(this)">Remove</button>`;
+    
+    participantsList.appendChild(newParticipant);
+    
+    nameInput.value = '';
+    dateInput.value = '';
+}
+
+function removeParticipant(button) {
+    const participant = button.parentElement;
+    participant.remove();
+}
+
+    </script>
 </body>
 </html>
