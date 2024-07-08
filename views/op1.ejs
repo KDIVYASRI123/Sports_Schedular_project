@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Join</title>
+    <style>
+        body {
+            background-image: url('https://t4.ftcdn.net/jpg/05/31/83/21/360_F_531832113_NvsgAJ0X7z4fpljSLteLHN0K9bN8hcGP.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .requests-box, .accepted-box {
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            background-color: #f9f9f9;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+            border: none;
+            margin-left: 5px;
+        }
+
+        .accept-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .decline-button {
+            background-color: #ff4d4d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sports Join</h1>
+        <div class="requests-box">
+            <ul id="requestsList">
+                <li>
+                    Reena
+                    <button class="accept-button" onclick="handleAccept(this)">Accept</button>
+                    <button class="decline-button" onclick="handleDecline(this)">Decline</button>
+                </li>
+                <li>
+                    Tina
+                    <button class="accept-button" onclick="handleAccept(this)">Accept</button>
+                    <button class="decline-button" onclick="handleDecline(this)">Decline</button>
+                </li>
+                <li>
+                    Tejaswini
+                    <button class="accept-button" onclick="handleAccept(this)">Accept</button>
+                    <button class="decline-button" onclick="handleDecline(this)">Decline</button>
+                </li>
+                <li>
+                    Akhila
+                    <button class="accept-button" onclick="handleAccept(this)">Accept</button>
+                    <button class="decline-button" onclick="handleDecline(this)">Decline</button>
+                </li>
+                <li>
+                    Latha
+                    <button class="accept-button" onclick="handleAccept(this)">Accept</button>
+                    <button class="decline-button" onclick="handleDecline(this)">Decline</button>
+                </li>
+                <li>
+                    Vanitha
+                    <button class="accept-button" onclick="handleAccept(this)">Accept</button>
+                    <button class="decline-button" onclick="handleDecline(this)">Decline</button>
+                </li>
+            </ul>
+        </div>
+        <div class="accepted-box">
+            <h2>Accepted Requests</h2>
+            <ul id="acceptedList">
+                <!-- Accepted names will be added here -->
+            </ul>
+        </div>
+    </div>
+    <script>
+        const acceptedNames = [];
+
+        function handleAccept(button) {
+            const listItem = button.parentElement;
+            const name = listItem.textContent.trim().split('\n')[0];
+            acceptedNames.push(name);
+
+            // Update UI for accepted item
+            listItem.style.backgroundColor = '#d4edda'; // Light green background
+            listItem.style.color = '#155724'; // Dark green text
+            button.style.display = 'none';
+            button.nextElementSibling.style.display = 'none';
+
+            // Add to accepted list
+            updateAcceptedList();
+        }
+
+        function handleDecline(button) {
+            const listItem = button.parentElement;
+            listItem.style.backgroundColor = '#f8d7da'; // Light red background
+            listItem.style.color = '#721c24'; // Dark red text
+            button.style.display = 'none';
+            button.previousElementSibling.style.display = 'none';
+        }
+
+        function updateAcceptedList() {
+            const acceptedList = document.getElementById('acceptedList');
+            acceptedList.innerHTML = '';
+            acceptedNames.forEach(name => {
+                const listItem = document.createElement('li');
+                listItem.textContent = name;
+                acceptedList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
